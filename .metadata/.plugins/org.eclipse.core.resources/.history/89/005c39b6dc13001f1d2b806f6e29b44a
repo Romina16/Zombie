@@ -1,0 +1,138 @@
+package ar.edu.unlu.zombie.modelo;
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class FAT {
+	
+	class Bloque {
+        String contenido;
+        int siguiente;
+        boolean ocupado;
+    }
+
+    class Archivo {
+        String nombre;
+        int bloqueInicial;
+        int cantidadBloques;
+    }
+
+    List<Bloque> bloques; // inicializado con 100 bloques libres, cantidad de bloques inmutable
+    List<Archivo> archivos;
+
+    boolean existe(String nombre) { // BÚSQUEDA
+        for (Archivo archivo: archivos) {
+            if (archivo.nombre.equals(nombre))
+                return true;
+        }
+        return false;
+    }
+
+    int longitud(String contenido) {
+        return contenido.length() / 10;
+    }
+
+    List<Integer> obtenerBloquesLibres(String contenido) {
+        List<Integer> bl = new ArrayList<>();
+        for (int i = 0; i < bloques.size(); i++) {
+            if (!bloques.get(i).ocupado) {
+                bl.add(i);
+                if (longitud(contenido) == bl.size())
+                    return bl;
+            }
+        }
+        return bl; //lista vacia si no es suficiente
+    }
+
+    String leer(String nombre) { // LECTURA
+        for (Archivo archivo : archivos) {
+            if (archivo.nombre.equals(nombre)) //buscar / existe
+                return leer(archivo.bloqueInicial);          
+        }
+        return null;
+    }   
+
+    String leer(int bloqueInicial) {
+        Bloque bloque = bloques.get(bloqueInicial);
+        String resultado = "";
+        while (bloque != null) {
+            resultado += bloque.contenido;
+            if (bloque.siguiente == -1)
+                bloque = null;
+            else
+                bloque = bloques.get(bloque.siguiente);
+        }
+        return resultado;
+    }
+    
+    
+    void alta(String nombre, String contenido) {
+        if (existe(nombre)) //deberia poder agregar mas
+            return;
+        List<Integer> bloquesLibres = obtenerBloquesLibres(contenido);
+        if (bloquesLibres.size() == longitud(contenido)) // innecesario
+        this.Agregar(nombre, contenido, bloquesLibres);
+    }
+    
+    void Agregar(String nombre, String contenido, List<Integer> bloquesLibres) {
+    	for (int i = 0; i < bloquesLibres.size(); i++) {
+            Bloque bloque = bloques.get(bloquesLibres.get(i));
+            bloque.contenido = contenido.substring(i * 10, (i + 1) * 10);
+            bloque.ocupado = true;
+            if (i == bloquesLibres.size() - 1)
+                bloque.siguiente = -1;
+            else
+                bloque.siguiente = bloquesLibres.get(i + 1);
+        }
+    	Archivo archivo = new Archivo();
+        archivo.bloqueInicial = bloquesLibres.get(0);
+        archivo.cantidadBloques = bloquesLibres.size();
+        archivo.nombre = nombre;
+        archivos.add(archivo);
+    }
+    //------------------------
+    
+    boolean Eliminar(String nombre) {// elimina la primer ocurrencia
+        for (Archivo archivo : archivos) {
+            if (archivo.nombre.equals(nombre)) {
+                Bloque bloque = bloques.get(archivo.bloqueInicial);
+                while (bloque != null) {
+                    bloque.ocupado = false;
+                    bloque.contenido = null;
+                    if (bloque.siguiente == -1) {
+                        break;
+                    }
+                    bloque = bloques.get(bloque.siguiente);
+                }
+                archivos.remove(archivo);
+                return true; // Se encontró y eliminó el archivo
+            }
+        }
+        return false; // No se encontró el archivo
+    }
+    
+    Integer EliminarOcurrencias (String nombre) { //Borra todas las ocurrencias
+    	Integer resultado = 0;
+    	for (Archivo archivo: archivos) {
+            if (archivo.nombre.equals(nombre)) {
+            	Bloque bloque = bloques.get(archivo.bloqueInicial);
+            		while (bloque != null) {
+            			bloque.contenido = null;
+            			bloque.ocupado = false;
+            			if (bloque.siguiente == -1)
+            				bloque = null;
+            			else {
+            				bloque = bloques.get(bloque.siguiente);
+            				}
+            		}
+            		archivos.remove(archivo); 
+            		resultado++;
+            }          	
+        }
+    	return resultado;
+    }
+
+    
+}
+
+
