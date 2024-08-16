@@ -1,8 +1,8 @@
 package ar.edu.unlu.zombie.modelo;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
-
+import java.util.LinkedList;
 class Mazo {
 	private Stack<Carta> mazo = new Stack<Carta>();
 	
@@ -24,9 +24,25 @@ class Mazo {
 		Carta comodin = new Carta(); // comodin no tiene valor ni numero
 		mazo.add(comodin); // carta nro 49
 	}  
+	
 //mezclar
 		public void mezclar() {
 			Collections.shuffle(mazo);
+		}
+		
+//repartir cartas hasta acabar mazo		
+		public LinkedList<LinkedList<Carta>> repartirCartas(int cantidadJugadores) {
+			int indice = 1;
+			LinkedList<Carta> mano = new LinkedList<Carta>();
+			LinkedList<LinkedList<Carta>> listaManos = new LinkedList<LinkedList<Carta>>();
+			for (int i = 0; i < cantidadJugadores; i++) { //preparo la cantidad de manos que tendra el juego
+				listaManos.add(mano);
+			}			
+			while (mazo.size() != 0) {
+				listaManos.get(indice).add(mazo.pop()); // cargo manos en una lista para retornar
+				indice = (indice + 1) % cantidadJugadores;  
+			}
+			return listaManos;
 		}
 	
 	

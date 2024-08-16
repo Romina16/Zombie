@@ -24,9 +24,26 @@ class Carta {
 		return numero;
 	}
 //---------------------------------------------------
-// retorna un string con tipo y num de carta	
+// retorna un string con tipo y numero de carta	
 	public String valorCarta() {
 		return (this.tipo == null) ? ("Comodin") : ("Numero "+ this.numero.toString() + " Tipo: " + this.tipo.toString());
 	}
+//carta comodin	
+	public boolean EsComodin() {
+		boolean esComodin = false;
+		if (this.numero == 0) {
+			esComodin = true;
+		}
+		return esComodin;
+	}
+// carta compara su numero para ver si es pareja de otra carta	
+	public boolean esPareja(Carta otraCarta) {
+	 	boolean esPareja = false;
+		if (this.numero == otraCarta.numero) {
+			esPareja = true;
+		}
+		return esPareja;
+	}
+	
 }
 

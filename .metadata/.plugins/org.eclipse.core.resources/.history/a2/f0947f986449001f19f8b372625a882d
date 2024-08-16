@@ -1,0 +1,20 @@
+package ar.edu.unlu.zombie.modelo;
+
+import java.util.ArrayList;
+
+import ar.edu.unlu.zombie.observador.IObservador;
+
+public class Zombie {
+	//private Queue <Jugador> turnosJugadores = new LinkedList<Jugador>();// cola para manejar turnos
+	//private List<Jugador> Jugadores = new LinkedList<Jugador>();
+	//private 
+	private Mazo mazo;
+	private ArrayList<IObservador> observadores ;
+	
+	public Zombie() {
+		mazo = new Mazo();
+		observadores = new ArrayList<IObservador>();
+	} // constructor
+	
+	
+}

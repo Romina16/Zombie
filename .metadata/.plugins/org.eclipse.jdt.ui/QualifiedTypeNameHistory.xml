@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="ar.edu.unlu.zombie.modelo.FAT.Archivo"/>
     <fullyQualifiedTypeName name="ar.edu.unlu.zombie.modelo.fat3.Archivo3"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.LinkedList"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
+    <fullyQualifiedTypeName name="ar.edu.unlu.zombie.vista.VistaConsola"/>
+    <fullyQualifiedTypeName name="ar.edu.unlu.zombie.modelo.Zombie"/>
+    <fullyQualifiedTypeName name="ar.edu.unlu.zombie.observador.IObservador"/>
+    <fullyQualifiedTypeName name="ar.edu.unlu.zombie.modelo.Evento"/>
 </qualifiedTypeNameHistroy>
